@@ -1,16 +1,20 @@
+import java.util.function.Predicate;
+
 /**
  * Created by Roberto Manca (roberto.manca@edreamsodigeo.com) on 10/05/2018.
  */
 public class Level {
 
-    private int level;
+    public static final Predicate<Level> IS_VALID = l -> l.id >= 0;
+
+    private int id;
 
     public int getLevel() {
-        return level;
+        return id;
     }
 
     public void setLevel(final int level) {
-        this.level = level;
+        this.id = level;
     }
 
     @Override
@@ -24,11 +28,11 @@ public class Level {
 
         final Level level1 = (Level) o;
 
-        return level == level1.level;
+        return id == level1.id;
     }
 
     @Override
     public int hashCode() {
-        return level;
+        return id;
     }
 }
