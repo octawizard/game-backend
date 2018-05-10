@@ -1,11 +1,15 @@
+package com.robertomanca.game.model;
+
 import java.util.function.Predicate;
 
+import static com.robertomanca.game.util.Integers.IS_NOT_NEGATIVE;
+
 /**
- * Created by Roberto Manca (roberto.manca@edreamsodigeo.com) on 10/05/2018.
+ * Created by Roberto Manca on 10/05/2018.
  */
 public class Level {
 
-    public static final Predicate<Level> IS_VALID = l -> l.id >= 0;
+    public static final Predicate<Level> IS_VALID = l -> IS_NOT_NEGATIVE.test(l.getLevel());
 
     private int id;
 
