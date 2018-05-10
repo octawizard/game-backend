@@ -9,23 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>usecase</artifactId>
-
+    <artifactId>repository-contract</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.robertomanca.game</groupId>
             <artifactId>model</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.robertomanca.game</groupId>
-            <artifactId>usecase-contract</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.robertomanca.game</groupId>
-            <artifactId>repository-contract</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
