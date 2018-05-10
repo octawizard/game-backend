@@ -20,7 +20,13 @@ public class UserRepositoryImpl implements UserRepository {
     public User getUser(final int userId) {
 
         return Optional.ofNullable(users.get(userId))
-                .orElse(users.put(userId, generateUser(userId)));
+                .orElse(generateAndStoreUser(userId));
+    }
+
+    private User generateAndStoreUser(final int userId) {
+        final User generatedUser = generateUser(userId);
+        users.put(userId, generatedUser);
+        return generatedUser;
     }
 
     private User generateUser(final int userId) {
