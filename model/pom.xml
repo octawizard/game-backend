@@ -10,7 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/nl.jqno.equalsverifier/equalsverifier -->
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
