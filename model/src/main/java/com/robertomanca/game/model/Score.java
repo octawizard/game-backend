@@ -7,6 +7,7 @@ public class Score {
 
     private User user;
     private Level level;
+    private int scoreValue;
 
     public User getUser() {
         return user;
@@ -24,6 +25,14 @@ public class Score {
         this.level = level;
     }
 
+    public int getScoreValue() {
+        return scoreValue;
+    }
+
+    public void setScoreValue(final int scoreValue) {
+        this.scoreValue = scoreValue;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -35,6 +44,9 @@ public class Score {
 
         final Score score = (Score) o;
 
+        if (scoreValue != score.scoreValue) {
+            return false;
+        }
         if (user != null ? !user.equals(score.user) : score.user != null) {
             return false;
         }
@@ -45,6 +57,7 @@ public class Score {
     public int hashCode() {
         int result = user != null ? user.hashCode() : 0;
         result = 31 * result + (level != null ? level.hashCode() : 0);
+        result = 31 * result + scoreValue;
         return result;
     }
 }

@@ -8,6 +8,7 @@ import java.util.UUID;
 public class Session {
 
     private UUID key;
+    private int userId;
 
     public UUID getKey() {
         return key;
@@ -15,6 +16,14 @@ public class Session {
 
     public void setKey(final UUID key) {
         this.key = key;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(final int userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -28,11 +37,16 @@ public class Session {
 
         final Session session = (Session) o;
 
+        if (userId != session.userId) {
+            return false;
+        }
         return key != null ? key.equals(session.key) : session.key == null;
     }
 
     @Override
     public int hashCode() {
-        return key != null ? key.hashCode() : 0;
+        int result = key != null ? key.hashCode() : 0;
+        result = 31 * result + userId;
+        return result;
     }
 }

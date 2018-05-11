@@ -10,6 +10,7 @@ public class SessionDO {
 
     private UUID key;
     private LocalDateTime creationDateTime;
+    private int userId;
 
     public UUID getKey() {
         return key;
@@ -29,6 +30,14 @@ public class SessionDO {
 
     public boolean isNotExpired() {
         return LocalDateTime.now().isBefore(this.creationDateTime.plusMinutes(10));
+    }
+
+    public void setUserId(final int userId) {
+        this.userId = userId;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 
     @Override
