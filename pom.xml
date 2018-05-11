@@ -22,6 +22,8 @@
         <module>repository</module>
         <module>web</module>
         <module>injector</module>
+        <module>injector-contract</module>
+        <module>injector-client</module>
     </modules>
 
     <dependencyManagement>
@@ -44,39 +46,16 @@
                 <version>4.12</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
-                <groupId>com.robertomanca.game</groupId>
-                <artifactId>injector</artifactId>
-                <version>${project.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.robertomanca.game</groupId>
-                        <artifactId>model</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.robertomanca.game</groupId>
-                        <artifactId>repository-contract</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.robertomanca.game</groupId>
-                        <artifactId>repository</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.robertomanca.game</groupId>
-                        <artifactId>usecase-contract</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.robertomanca.game</groupId>
-                        <artifactId>usecase</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.robertomanca.game</groupId>
-                        <artifactId>web</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.robertomanca.game</groupId>
+            <artifactId>injector-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

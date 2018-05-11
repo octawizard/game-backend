@@ -1,6 +1,6 @@
 package com.robertomanca.game.usecase;
 
-import com.robertomanca.game.injector.InjectorManager;
+import com.robertomanca.game.injector.InjectorFactory;
 import com.robertomanca.game.model.Session;
 import com.robertomanca.game.model.User;
 import com.robertomanca.game.model.exception.SessionExpiredException;
@@ -21,9 +21,9 @@ public class PostScoreUseCaseImpl implements PostScoreUseCase {
     private UserRepository userRepository;
 
     public PostScoreUseCaseImpl() {
-        sessionRepository = InjectorManager.getInstance(SessionRepository.class);
-        userRepository = InjectorManager.getInstance(UserRepository.class);
-        scoreRepository = InjectorManager.getInstance(ScoreRepository.class);
+        sessionRepository = InjectorFactory.getInjectorProvider().getInstance(SessionRepository.class);
+        userRepository = InjectorFactory.getInjectorProvider().getInstance(UserRepository.class);
+        scoreRepository = InjectorFactory.getInjectorProvider().getInstance(ScoreRepository.class);
     }
 
     @Override

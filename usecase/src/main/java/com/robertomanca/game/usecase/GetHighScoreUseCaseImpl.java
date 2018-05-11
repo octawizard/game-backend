@@ -1,6 +1,6 @@
 package com.robertomanca.game.usecase;
 
-import com.robertomanca.game.injector.InjectorManager;
+import com.robertomanca.game.injector.InjectorFactory;
 import com.robertomanca.game.model.Score;
 import com.robertomanca.game.repository.ScoreRepository;
 import com.robertomanca.game.repository.UserRepository;
@@ -18,8 +18,8 @@ public class GetHighScoreUseCaseImpl implements GetHighScoreUseCase {
     private UserRepository userRepository;
 
     public GetHighScoreUseCaseImpl() {
-        scoreRepository = InjectorManager.getInstance(ScoreRepository.class);
-        userRepository = InjectorManager.getInstance(UserRepository.class);
+        scoreRepository = InjectorFactory.getInjectorProvider().getInstance(ScoreRepository.class);
+        userRepository = InjectorFactory.getInjectorProvider().getInstance(UserRepository.class);
     }
 
     @Override

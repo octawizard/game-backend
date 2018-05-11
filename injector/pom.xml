@@ -43,5 +43,10 @@
             <artifactId>web</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.robertomanca.game</groupId>
+            <artifactId>injector-contract</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>
