@@ -5,5 +5,5 @@ package com.robertomanca.game.injector;
  */
 public interface InjectorConfigurator {
 
-   void configureSingletons();
+   void configureSingletonsAndBindings();
 }
