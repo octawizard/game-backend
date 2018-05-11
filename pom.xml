@@ -21,6 +21,7 @@
         <module>repository-contract</module>
         <module>packaging</module>
         <module>repository</module>
+        <module>web</module>
     </modules>
 
     <build>
