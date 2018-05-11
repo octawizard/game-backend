@@ -4,6 +4,7 @@ import com.robertomanca.game.model.Session;
 import com.robertomanca.game.model.User;
 import com.robertomanca.game.model.exception.SessionExpiredException;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -12,7 +13,7 @@ import java.util.UUID;
  */
 public interface SessionRepository {
 
-    Session createSession(User user);
+    Session createSession(User user, LocalDateTime localDateTime);
 
-    Optional<Session> getSession(UUID key) throws SessionExpiredException; //TODO check if create SessionNotFoundException or handle that in the usecase
+    Optional<Session> getSession(UUID key) throws SessionExpiredException;
 }

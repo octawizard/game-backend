@@ -1,5 +1,7 @@
 package com.robertomanca.game.model;
 
+import java.nio.charset.Charset;
+import java.util.Random;
 import java.util.function.Predicate;
 
 import static com.robertomanca.game.util.Integers.IS_NOT_NEGATIVE;
@@ -65,5 +67,20 @@ public class User {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         return result;
+    }
+
+    public static User generateUser(final int userId, final Random random) {
+
+        final User user = new User();
+        user.setUserId(userId);
+        user.setName(randomString(random));
+        user.setEmail(randomString(random) + "@" + randomString(random));
+        return user;
+    }
+
+    private static String randomString(final Random random) {
+        byte[] array = new byte[8];
+        random.nextBytes(array);
+        return new String(array, Charset.defaultCharset());
     }
 }

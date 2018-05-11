@@ -22,9 +22,9 @@ public class SessionRepositoryImpl implements SessionRepository {
     }
 
     @Override
-    public Session createSession(final User user) {
+    public Session createSession(final User user, LocalDateTime localDateTime) {
         final UUID uuid = UUID.randomUUID();
-        final SessionDO sessionDO = createSessionDO(uuid, user.getUserId());
+        final SessionDO sessionDO = createSessionDO(uuid, user.getUserId(), localDateTime);
         sessions.put(uuid, sessionDO);
         return convertToSession(sessionDO);
     }
@@ -51,11 +51,11 @@ public class SessionRepositoryImpl implements SessionRepository {
         return session;
     }
 
-    private SessionDO createSessionDO(final UUID uuid, final int userId) {
+    private SessionDO createSessionDO(final UUID uuid, final int userId, final LocalDateTime localeDateTime) {
         SessionDO sessionDO = new SessionDO();
         sessionDO.setKey(uuid);
         sessionDO.setUserId(userId);
-        sessionDO.setCreationDateTime(LocalDateTime.now());
+        sessionDO.setCreationDateTime(localeDateTime);
         return sessionDO;
     }
 }

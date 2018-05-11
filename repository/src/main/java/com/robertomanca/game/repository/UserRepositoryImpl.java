@@ -2,10 +2,11 @@ package com.robertomanca.game.repository;
 
 import com.robertomanca.game.model.User;
 
-import java.nio.charset.Charset;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static com.robertomanca.game.model.User.generateUser;
 
 /**
  * Created by Roberto Manca on 10-May-18.
@@ -27,23 +28,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     private User generateAndStoreUser(final int userId) {
-        final User generatedUser = generateUser(userId);
+        final User generatedUser = generateUser(userId, RANDOM);
         users.put(userId, generatedUser);
         return generatedUser;
-    }
-
-    private User generateUser(final int userId) {
-
-        final User user = new User();
-        user.setUserId(userId);
-        user.setName(randomString());
-        user.setEmail(randomString() + "@" + randomString());
-        return user;
-    }
-
-    private String randomString() {
-        byte[] array = new byte[8];
-        RANDOM.nextBytes(array);
-        return new String(array, Charset.defaultCharset());
     }
 }
