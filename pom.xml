@@ -19,7 +19,6 @@
         <module>usecase</module>
         <module>usecase-contract</module>
         <module>repository-contract</module>
-        <module>packaging</module>
         <module>repository</module>
         <module>web</module>
     </modules>
@@ -48,7 +47,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        com.robertomanca.game.packaging.Main
+                                        com.robertomanca.game.web.Main
                                     </mainClass>
                                 </manifest>
                             </archive>
