@@ -50,9 +50,9 @@ public class ScoreRepositoryImpl implements ScoreRepository {
                 .map(List::stream)
                 .orElse(Stream.empty())
                 .collect(Collectors.toConcurrentMap(ScoreDO::getUserId, Function.identity(), MERGER))
-                .values()   //TODO check possible npe
+                .values()
                 .stream()
-                .sorted(Comparator.naturalOrder())
+                .sorted(Comparator.comparingInt(ScoreDO::getScore).reversed())
                 .limit(maxResults)
                 .map(convertToScore())
                 .collect(Collectors.toList());
