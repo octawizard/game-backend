@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>usecase</artifactId>
+    <artifactId>injector</artifactId>
 
 
     <dependencies>
@@ -20,31 +20,28 @@
         </dependency>
         <dependency>
             <groupId>com.robertomanca.game</groupId>
-            <artifactId>usecase-contract</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.robertomanca.game</groupId>
             <artifactId>repository-contract</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.robertomanca.game</groupId>
-            <artifactId>injector</artifactId>
+            <artifactId>repository</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
+            <groupId>com.robertomanca.game</groupId>
+            <artifactId>usecase-contract</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>nl.jqno.equalsverifier</groupId>
-            <artifactId>equalsverifier</artifactId>
+            <groupId>com.robertomanca.game</groupId>
+            <artifactId>usecase</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>com.robertomanca.game</groupId>
+            <artifactId>web</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
-
-
 </project>

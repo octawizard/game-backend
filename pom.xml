@@ -21,6 +21,7 @@
         <module>repository-contract</module>
         <module>repository</module>
         <module>web</module>
+        <module>injector</module>
     </modules>
 
     <dependencyManagement>
@@ -42,6 +43,37 @@
                 <artifactId>junit</artifactId>
                 <version>4.12</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.robertomanca.game</groupId>
+                <artifactId>injector</artifactId>
+                <version>${project.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.robertomanca.game</groupId>
+                        <artifactId>model</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.robertomanca.game</groupId>
+                        <artifactId>repository-contract</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.robertomanca.game</groupId>
+                        <artifactId>repository</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.robertomanca.game</groupId>
+                        <artifactId>usecase-contract</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.robertomanca.game</groupId>
+                        <artifactId>usecase</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.robertomanca.game</groupId>
+                        <artifactId>web</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>

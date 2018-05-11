@@ -1,5 +1,6 @@
 package com.robertomanca.game.usecase;
 
+import com.robertomanca.game.injector.InjectorManager;
 import com.robertomanca.game.model.Session;
 import com.robertomanca.game.model.User;
 import com.robertomanca.game.model.exception.SessionExpiredException;
@@ -18,6 +19,12 @@ public class PostScoreUseCaseImpl implements PostScoreUseCase {
     private SessionRepository sessionRepository;
     private ScoreRepository scoreRepository;
     private UserRepository userRepository;
+
+    public PostScoreUseCaseImpl() {
+        sessionRepository = InjectorManager.getInstance(SessionRepository.class);
+        userRepository = InjectorManager.getInstance(UserRepository.class);
+        scoreRepository = InjectorManager.getInstance(ScoreRepository.class);
+    }
 
     @Override
     public void postScore(final int levelId, final UUID sessionKey, final int score) throws SessionExpiredException, SessionNotFoundException {
