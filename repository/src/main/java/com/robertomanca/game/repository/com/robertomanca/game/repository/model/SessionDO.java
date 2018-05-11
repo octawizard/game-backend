@@ -51,6 +51,9 @@ public class SessionDO {
 
         final SessionDO sessionDO = (SessionDO) o;
 
+        if (userId != sessionDO.userId) {
+            return false;
+        }
         if (key != null ? !key.equals(sessionDO.key) : sessionDO.key != null) {
             return false;
         }
@@ -61,6 +64,7 @@ public class SessionDO {
     public int hashCode() {
         int result = key != null ? key.hashCode() : 0;
         result = 31 * result + (creationDateTime != null ? creationDateTime.hashCode() : 0);
+        result = 31 * result + userId;
         return result;
     }
 }
