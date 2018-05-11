@@ -2,7 +2,9 @@ package com.robertomanca.game.repository;
 
 import com.robertomanca.game.model.User;
 
+import java.nio.charset.Charset;
 import java.util.Optional;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -10,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class UserRepositoryImpl implements UserRepository {
 
+    private static final Random RANDOM = new Random();
     private ConcurrentHashMap<Integer, User> users;
 
     public UserRepositoryImpl() {
@@ -33,8 +36,14 @@ public class UserRepositoryImpl implements UserRepository {
 
         final User user = new User();
         user.setUserId(userId);
-        user.setName("mario");
-        user.setEmail("mario@gmail.com");
+        user.setName(randomString());
+        user.setEmail(randomString() + "@" + randomString());
         return user;
+    }
+
+    private String randomString() {
+        byte[] array = new byte[8];
+        RANDOM.nextBytes(array);
+        return new String(array, Charset.defaultCharset());
     }
 }
