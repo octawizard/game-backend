@@ -5,9 +5,11 @@ import java.util.function.Predicate;
 /**
  * Created by Roberto Manca on 10/05/2018.
  */
-public class Integers {
+public final class Integers {
 
-    public static final Predicate<Integer> IS_POSITIVE = i -> i > 0;
+    private Integers() {
+        throw new AssertionError("No instances of " + Integers.class.getCanonicalName() + " for you!");
+    }
 
     public static final Predicate<Integer> IS_NEGATIVE = i -> i < 0;
 
