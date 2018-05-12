@@ -3,6 +3,8 @@ package com.robertomanca.game.web.login;
 import com.robertomanca.game.injector.InjectorFactory;
 import com.robertomanca.game.model.Session;
 import com.robertomanca.game.usecase.LoginUseCase;
+import com.robertomanca.game.web.util.BadParameterHandler;
+import com.robertomanca.game.web.util.IntValidator;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
@@ -12,7 +14,7 @@ import java.util.OptionalInt;
 /**
  * Created by Roberto Manca on 11-May-18.
  */
-public class LoginResourceImpl implements LoginResource {
+public class LoginResourceImpl implements LoginResource, BadParameterHandler {
 
     private LoginUseCase loginUseCase;
 
@@ -39,9 +41,9 @@ getResponseBody() to get a OutputStream to send the response body. When the resp
         String sUserId = path.substring(beginIndex, path.indexOf('/', beginIndex));
 
         //do validation
-        OptionalInt optUserId = validateUserId(sUserId);
+        OptionalInt optUserId = IntValidator.validate(sUserId);
         if (!optUserId.isPresent()) {
-            handleBadParameterScenario(t);
+            handleBadParameterScenario(t, "The provided user id is not valid");
             return;
         }
 
@@ -54,23 +56,14 @@ getResponseBody() to get a OutputStream to send the response body. When the resp
         OutputStream os = t.getResponseBody();
         os.write(response.getBytes());
         os.close();
-
     }
 
-    private void handleBadParameterScenario(final HttpExchange t) throws IOException {
-        //TODO maybe move this in some common class to reuse it
-        String response = "The provided user id is not valid";
-        t.sendResponseHeaders(400, response.length());
-        OutputStream os = t.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
-    }
-
-    private OptionalInt validateUserId(final String sUserId) {
-        try {
-            return OptionalInt.of(Integer.valueOf(sUserId));
-        } catch (NumberFormatException e) {
-            return OptionalInt.empty();
-        }
-    }
+//    private void handleBadParameterScenario(final HttpExchange t) throws IOException {
+//        //TODO maybe move this in some common class to reuse it
+//        String response = "The provided user id is not valid";
+//        t.sendResponseHeaders(400, response.length());
+//        OutputStream os = t.getResponseBody();
+//        os.write(response.getBytes());
+//        os.close();
+//    }
 }

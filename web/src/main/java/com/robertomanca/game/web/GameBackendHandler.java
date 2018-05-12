@@ -22,7 +22,7 @@ public class GameBackendHandler implements HttpHandler {
 
     private static final String LOGIN_REGEX = "/\\d+/login";
     private static final String HIGH_SCORE_LIST_REGEX = "/\\d+/highscorelist";
-    private static final String SAVE_SCORE_REGEX = "/\\d+/score\\?sessionKey=";
+    private static final String SAVE_SCORE_REGEX = "/\\d+/score\\?sessionkey=.*";
 
     private final LoginResource loginResource = new LoginResourceImpl();
     private final PostScoreResource postScoreResource = new PostScoreResourceImpl();
