@@ -24,6 +24,7 @@
         <module>injector</module>
         <module>injector-contract</module>
         <module>injector-client</module>
+        <module>starter</module>
     </modules>
 
     <dependencyManagement>
@@ -49,14 +50,6 @@
         </dependencies>
     </dependencyManagement>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.robertomanca.game</groupId>
-            <artifactId>injector-client</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -81,7 +74,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        com.robertomanca.game.web.Main
+                                        com.robertomanca.game.starter.Main
                                     </mainClass>
                                 </manifest>
                             </archive>
