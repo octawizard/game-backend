@@ -1,6 +1,11 @@
 package com.robertomanca.game.web;
 
+import com.robertomanca.game.web.login.LoginResource;
 import com.robertomanca.game.web.login.LoginResourceImpl;
+import com.robertomanca.game.web.score.HighestScoreResource;
+import com.robertomanca.game.web.score.HighestScoreResourceImpl;
+import com.robertomanca.game.web.score.PostScoreResource;
+import com.robertomanca.game.web.score.PostScoreResourceImpl;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -18,6 +23,10 @@ public class GameBackendHandler implements HttpHandler {
     private static final String LOGIN_REGEX = "/\\d+/login";
     private static final String HIGH_SCORE_LIST_REGEX = "/\\d+/highscorelist";
     private static final String SAVE_SCORE_REGEX = "/\\d+/score\\?sessionKey=";
+
+    private final LoginResource loginResource = new LoginResourceImpl();
+    private final PostScoreResource postScoreResource = new PostScoreResourceImpl();
+    private final HighestScoreResource highestScoreResource = new HighestScoreResourceImpl();
 
     @Override
     public void handle(HttpExchange t) throws IOException {
@@ -38,12 +47,11 @@ public class GameBackendHandler implements HttpHandler {
     }
 
     private void redirect(final String uri, final HttpExchange t) throws IOException {
-        final LoginResourceImpl loginResource = new LoginResourceImpl();
         if (uri.matches(LOGIN_REGEX)) {
-            loginResource.login(t);
+            loginResource.process(t);
         }
         if (uri.matches(HIGH_SCORE_LIST_REGEX)){
-
+            highestScoreResource.process(t);
         } else {
             handleNotFoundScenario(t);
         }
@@ -51,7 +59,7 @@ public class GameBackendHandler implements HttpHandler {
 
     private void postUserScore(final String uri, final HttpExchange t) throws IOException {
         if (uri.matches(SAVE_SCORE_REGEX)) {
-
+            postScoreResource.process(t);
         } else {
             handleNotFoundScenario(t);
         }

@@ -32,7 +32,7 @@ getResponseBody() to get a OutputStream to send the response body. When the resp
      */
 
     @Override
-    public void login(final HttpExchange t) throws IOException {
+    public void process(final HttpExchange t) throws IOException {
         //extract parameters
         final String path = t.getRequestURI().getPath();
         final int beginIndex = path.indexOf('/') + 1;
@@ -41,7 +41,7 @@ getResponseBody() to get a OutputStream to send the response body. When the resp
         //do validation
         OptionalInt optUserId = validateUserId(sUserId);
         if (!optUserId.isPresent()) {
-            handleBadParameterScenario();
+            handleBadParameterScenario(t);
             return;
         }
 
@@ -57,8 +57,13 @@ getResponseBody() to get a OutputStream to send the response body. When the resp
 
     }
 
-    private void handleBadParameterScenario() {
-        //TODO implement
+    private void handleBadParameterScenario(final HttpExchange t) throws IOException {
+        //TODO maybe move this in some common class to reuse it
+        String response = "The provided user id is not valid";
+        t.sendResponseHeaders(400, response.length());
+        OutputStream os = t.getResponseBody();
+        os.write(response.getBytes());
+        os.close();
     }
 
     private OptionalInt validateUserId(final String sUserId) {
