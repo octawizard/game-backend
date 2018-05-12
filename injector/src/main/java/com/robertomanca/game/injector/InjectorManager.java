@@ -14,11 +14,11 @@ public enum InjectorManager implements InjectorConfigurator, InjectorProvider {
     private static Map<Class, Object> singletons = new HashMap<>();
     private static Map<Class, Class> bindings = new HashMap<>();
 
-    public <T, U extends T> void configureSingletons(Class<T> clazz, U object) {
+    public <T, U extends T> void configureSingleton(Class<T> clazz, U object) {
         singletons.put(clazz, object);
     }
 
-    public <T, U extends T> void configureBindings(Class<T> tClass, Class<U> uClass) {
+    public <T, U extends T> void configureBinding(Class<T> tClass, Class<U> uClass) {
         bindings.put(tClass, uClass);
     }
 

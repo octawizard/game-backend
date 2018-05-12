@@ -5,7 +5,7 @@ package com.robertomanca.game.injector;
  */
 public interface InjectorConfigurator {
 
-   <T, U extends T> void configureSingletons(Class<T> clazz, U object );
+   <T, U extends T> void configureSingleton(Class<T> clazz, U object );
 
-   <T, U extends T> void configureBindings(Class<T> tClass, Class<U> uClass);
+   <T, U extends T> void configureBinding(Class<T> tClass, Class<U> uClass);
 }

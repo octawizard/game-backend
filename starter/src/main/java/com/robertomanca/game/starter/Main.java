@@ -39,18 +39,18 @@ public class Main {
 
     private static void configureResourcesBindings() {
         final InjectorConfigurator injectorConfigurator = InjectorFactory.getInjectorConfigurator();
-        injectorConfigurator.configureBindings(LoginResource.class, LoginResourceImpl.class);
+        injectorConfigurator.configureBinding(LoginResource.class, LoginResourceImpl.class);
         // TODO add the other resources lataer
 
         // use cases
-        injectorConfigurator.configureBindings(LoginUseCase.class, LoginUseCaseImpl.class);
-        injectorConfigurator.configureBindings(PostScoreUseCase.class, PostScoreUseCaseImpl.class);
-        injectorConfigurator.configureBindings(GetHighScoreUseCase.class, GetHighScoreUseCaseImpl.class);
+        injectorConfigurator.configureBinding(LoginUseCase.class, LoginUseCaseImpl.class);
+        injectorConfigurator.configureBinding(PostScoreUseCase.class, PostScoreUseCaseImpl.class);
+        injectorConfigurator.configureBinding(GetHighScoreUseCase.class, GetHighScoreUseCaseImpl.class);
 
         // repositories singletons
-        injectorConfigurator.configureSingletons(UserRepository.class, new UserRepositoryImpl());
-        injectorConfigurator.configureSingletons(ScoreRepository.class, new ScoreRepositoryImpl());
-        injectorConfigurator.configureSingletons(SessionRepository.class, new SessionRepositoryImpl());
+        injectorConfigurator.configureSingleton(UserRepository.class, new UserRepositoryImpl());
+        injectorConfigurator.configureSingleton(ScoreRepository.class, new ScoreRepositoryImpl());
+        injectorConfigurator.configureSingleton(SessionRepository.class, new SessionRepositoryImpl());
     }
 
 //    static class MyHandler implements HttpHandler {
