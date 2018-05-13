@@ -47,6 +47,9 @@ public class GameBackendHandler implements HttpHandler, NotFoundHandler {
             case POST:
                 postUserScore(uri, t);
                 break;
+            default:
+                handleNotFoundScenario(t);
+                break;
         }
     }
 
@@ -54,7 +57,7 @@ public class GameBackendHandler implements HttpHandler, NotFoundHandler {
         if (uri.matches(LOGIN_REGEX)) {
             loginResource.process(t);
         }
-        if (uri.matches(HIGH_SCORE_LIST_REGEX)){
+        if (uri.matches(HIGH_SCORE_LIST_REGEX)) {
             highestScoreResource.process(t);
         } else {
             handleNotFoundScenario(t);
