@@ -29,7 +29,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     private User generateAndStoreUser(final int userId) {
         final User generatedUser = generateUser(userId, RANDOM);
-        users.put(userId, generatedUser);
+        users.putIfAbsent(userId, generatedUser);   // do not insert again user with same id
         return generatedUser;
     }
 }
