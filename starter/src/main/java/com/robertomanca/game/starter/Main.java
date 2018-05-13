@@ -17,6 +17,10 @@ import com.robertomanca.game.usecase.PostScoreUseCaseImpl;
 import com.robertomanca.game.web.GameBackendHandler;
 import com.robertomanca.game.web.login.LoginResource;
 import com.robertomanca.game.web.login.LoginResourceImpl;
+import com.robertomanca.game.web.score.HighestScoreResource;
+import com.robertomanca.game.web.score.HighestScoreResourceImpl;
+import com.robertomanca.game.web.score.PostScoreResource;
+import com.robertomanca.game.web.score.PostScoreResourceImpl;
 import com.sun.net.httpserver.HttpServer;
 
 import java.net.InetSocketAddress;
@@ -40,7 +44,8 @@ public class Main {
     private static void configureResourcesBindings() {
         final InjectorConfigurator injectorConfigurator = InjectorFactory.getInjectorConfigurator();
         injectorConfigurator.configureBinding(LoginResource.class, LoginResourceImpl.class);
-        // TODO add the other resources lataer
+        injectorConfigurator.configureBinding(PostScoreResource.class, PostScoreResourceImpl.class);
+        injectorConfigurator.configureBinding(HighestScoreResource.class, HighestScoreResourceImpl.class);
 
         // use cases
         injectorConfigurator.configureBinding(LoginUseCase.class, LoginUseCaseImpl.class);
@@ -52,31 +57,4 @@ public class Main {
         injectorConfigurator.configureSingleton(ScoreRepository.class, new ScoreRepositoryImpl());
         injectorConfigurator.configureSingleton(SessionRepository.class, new SessionRepositoryImpl());
     }
-
-//    static class MyHandler implements HttpHandler {
-//        @Override
-//        public void handle(HttpExchange t) throws IOException {
-//            String response = "This is the 200 response";
-//            response += t.getRequestMethod();
-//            t.sendResponseHeaders(200, response.length());
-//            OutputStream os = t.getResponseBody();
-//            os.write(response.getBytes());
-//            os.close();
-//        }
-//    }
-//
-//    static class NotFoundHandler implements HttpHandler {
-//        @Override
-//        public void handle(HttpExchange t) throws IOException {
-//            String response = t.getRequestURI().toASCIIString();
-//            response += t.getRequestMethod();
-//            response += " The request resource is not found";
-//            t.sendResponseHeaders(404, response.length());
-//            OutputStream os = t.getResponseBody();
-//            os.write(response.getBytes());
-//            os.close();
-//        }
-//    }
-
-
 }

@@ -1,21 +1,19 @@
 package com.robertomanca.game.web;
 
+import com.robertomanca.game.injector.InjectorFactory;
 import com.robertomanca.game.web.login.LoginResource;
-import com.robertomanca.game.web.login.LoginResourceImpl;
 import com.robertomanca.game.web.score.HighestScoreResource;
-import com.robertomanca.game.web.score.HighestScoreResourceImpl;
 import com.robertomanca.game.web.score.PostScoreResource;
-import com.robertomanca.game.web.score.PostScoreResourceImpl;
+import com.robertomanca.game.web.util.NotFoundHandler;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * Created by Roberto Manca on 11-May-18.
  */
-public class GameBackendHandler implements HttpHandler {
+public class GameBackendHandler implements HttpHandler, NotFoundHandler {
 
     private static final String GET = "GET";
     private static final String POST = "POST";
@@ -24,9 +22,15 @@ public class GameBackendHandler implements HttpHandler {
     private static final String HIGH_SCORE_LIST_REGEX = "/\\d+/highscorelist";
     private static final String SAVE_SCORE_REGEX = "/\\d+/score\\?sessionkey=.*";
 
-    private final LoginResource loginResource = new LoginResourceImpl();
-    private final PostScoreResource postScoreResource = new PostScoreResourceImpl();
-    private final HighestScoreResource highestScoreResource = new HighestScoreResourceImpl();
+    private final LoginResource loginResource;
+    private final PostScoreResource postScoreResource;
+    private final HighestScoreResource highestScoreResource;
+
+    public GameBackendHandler() {
+        loginResource = InjectorFactory.getInjectorProvider().getInstance(LoginResource.class);
+        postScoreResource = InjectorFactory.getInjectorProvider().getInstance(PostScoreResource.class);
+        highestScoreResource = InjectorFactory.getInjectorProvider().getInstance(HighestScoreResource.class);
+    }
 
     @Override
     public void handle(HttpExchange t) throws IOException {
@@ -63,13 +67,5 @@ public class GameBackendHandler implements HttpHandler {
         } else {
             handleNotFoundScenario(t);
         }
-    }
-
-    private void handleNotFoundScenario(final HttpExchange t) throws IOException {
-        String response = "The request resource is not found";
-        t.sendResponseHeaders(404, response.length());
-        OutputStream os = t.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
     }
 }
