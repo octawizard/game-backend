@@ -5,12 +5,11 @@ import com.robertomanca.game.model.exception.SessionExpiredException;
 import com.robertomanca.game.model.exception.SessionNotFoundException;
 import com.robertomanca.game.usecase.PostScoreUseCase;
 import com.robertomanca.game.web.util.BadParameterHandler;
+import com.robertomanca.game.web.util.HttpRequestBodyReader;
 import com.robertomanca.game.web.util.IntValidator;
 import com.sun.net.httpserver.HttpExchange;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.OptionalInt;
 import java.util.UUID;
@@ -21,9 +20,11 @@ import java.util.UUID;
 public class PostScoreResourceImpl implements PostScoreResource, BadParameterHandler {
 
     private PostScoreUseCase postScoreUseCase;
+    private HttpRequestBodyReader httpRequestBodyReader;
 
     public PostScoreResourceImpl() {
         this.postScoreUseCase = InjectorFactory.getInjectorProvider().getInstance(PostScoreUseCase.class);
+        this.httpRequestBodyReader = InjectorFactory.getInjectorProvider().getInstance(HttpRequestBodyReader.class);
     }
 
     @Override
@@ -31,11 +32,11 @@ public class PostScoreResourceImpl implements PostScoreResource, BadParameterHan
         //extract parameters
         final String path = t.getRequestURI().getPath();
         final int beginIndex = path.indexOf('/') + 1;
-        String sLevelId = path.substring(beginIndex, path.indexOf('/', beginIndex));
+        final String sLevelId = path.substring(beginIndex, path.indexOf('/', beginIndex));
 
         final String sUUID = t.getRequestURI().getQuery().split("=")[1];
 
-        final String sScore = readBody(t);
+        final String sScore = httpRequestBodyReader.read(t.getRequestBody());
 
         //do validation
         OptionalInt optLevelId = IntValidator.validate(sLevelId);
@@ -71,22 +72,5 @@ public class PostScoreResourceImpl implements PostScoreResource, BadParameterHan
         OutputStream os = t.getResponseBody();
         os.write(response.getBytes());
         os.close();
-    }
-
-    private String readBody(final HttpExchange t) throws IOException {
-
-        InputStreamReader isr = new InputStreamReader(t.getRequestBody(), "utf-8");
-        BufferedReader br = new BufferedReader(isr);
-
-        int b;
-        StringBuilder buf = new StringBuilder(512);
-        while ((b = br.read()) != -1) {
-            buf.append((char) b);
-        }
-
-        br.close();
-        isr.close();
-
-        return buf.toString();
     }
 }

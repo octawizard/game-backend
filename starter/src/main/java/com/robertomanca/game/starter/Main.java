@@ -21,6 +21,7 @@ import com.robertomanca.game.web.score.HighestScoreResource;
 import com.robertomanca.game.web.score.HighestScoreResourceImpl;
 import com.robertomanca.game.web.score.PostScoreResource;
 import com.robertomanca.game.web.score.PostScoreResourceImpl;
+import com.robertomanca.game.web.util.HttpRequestBodyReader;
 import com.sun.net.httpserver.HttpServer;
 
 import java.net.InetSocketAddress;
@@ -56,5 +57,8 @@ public class Main {
         injectorConfigurator.configureSingleton(UserRepository.class, new UserRepositoryImpl());
         injectorConfigurator.configureSingleton(ScoreRepository.class, new ScoreRepositoryImpl());
         injectorConfigurator.configureSingleton(SessionRepository.class, new SessionRepositoryImpl());
+
+        // utils singleton
+        injectorConfigurator.configureSingleton(HttpRequestBodyReader.class, new HttpRequestBodyReader());
     }
 }
