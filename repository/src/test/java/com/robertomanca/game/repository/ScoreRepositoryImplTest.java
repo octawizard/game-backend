@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -26,7 +28,67 @@ public class ScoreRepositoryImplTest {
 
     @Test
     public void testSaveScore() {
-        scoreRepository.saveScore(1, 100, User.generateUser(1234, new Random()));
+        final int score = 100;
+        final int levelId = 1;
+        final int userId = 1234;
+        scoreRepository.saveScore(levelId, score, User.generateUser(userId, new Random()));
+
+        final List<Score> highestScore = scoreRepository.getHighestScore(levelId, 10);
+        assertEquals(1, highestScore.size());
+        assertEquals(score, highestScore.get(0).getScoreValue());
+        assertEquals(userId, highestScore.get(0).getUser().getUserId());
+        assertEquals(levelId, highestScore.get(0).getLevel().getLevel());
+    }
+
+    @Test
+    public void testSaveScoreTwoConcurrentOnTheSameLevel() throws InterruptedException {
+        final int score1 = 100;
+        final int score2 = 1000;
+        final int levelId = 1;
+        final int userId1 = 1234;
+        final int userId2 = 9999;
+
+        final ExecutorService executorService = Executors.newFixedThreadPool(2);
+        executorService.submit(() -> scoreRepository.saveScore(levelId, score1, User.generateUser(userId1, new Random())));
+        executorService.submit(() -> scoreRepository.saveScore(levelId, score2, User.generateUser(userId2, new Random())));
+
+        Thread.sleep(200);
+
+        final List<Score> highestScore = scoreRepository.getHighestScore(levelId, 10);
+        assertEquals(2, highestScore.size());
+        assertEquals(score2, highestScore.get(0).getScoreValue());
+        assertEquals(userId2, highestScore.get(0).getUser().getUserId());
+        assertEquals(levelId, highestScore.get(0).getLevel().getLevel());
+        assertEquals(score1, highestScore.get(1).getScoreValue());
+        assertEquals(userId1, highestScore.get(1).getUser().getUserId());
+        assertEquals(levelId, highestScore.get(1).getLevel().getLevel());
+    }
+
+    @Test
+    public void testSaveScoreTwoConcurrentOnDifferentLevel() throws InterruptedException {
+        final int score1 = 100;
+        final int score2 = 1000;
+        final int levelId1 = 1;
+        final int levelId2 = 2;
+        final int userId1 = 1234;
+        final int userId2 = 9999;
+
+        final ExecutorService executorService = Executors.newFixedThreadPool(2);
+        executorService.submit(() -> scoreRepository.saveScore(levelId1, score1, User.generateUser(userId1, new Random())));
+        executorService.submit(() -> scoreRepository.saveScore(levelId2, score2, User.generateUser(userId2, new Random())));
+
+        Thread.sleep(200);
+
+        List<Score> highestScore = scoreRepository.getHighestScore(levelId1, 10);
+        assertEquals(1, highestScore.size());
+        assertEquals(score1, highestScore.get(0).getScoreValue());
+        assertEquals(userId1, highestScore.get(0).getUser().getUserId());
+        assertEquals(levelId1, highestScore.get(0).getLevel().getLevel());
+
+        highestScore = scoreRepository.getHighestScore(levelId2, 10);
+        assertEquals(score2, highestScore.get(0).getScoreValue());
+        assertEquals(userId2, highestScore.get(0).getUser().getUserId());
+        assertEquals(levelId2, highestScore.get(0).getLevel().getLevel());
     }
 
     @Test

@@ -47,7 +47,7 @@ public class ScoreRepositoryImpl implements ScoreRepository {
     @Override
     public List<Score> getHighestScore(final int levelId, final int maxResults) {
         return Optional.ofNullable(scores.get(levelId))
-                .map(List::stream)
+                .map(List::parallelStream)
                 .orElse(Stream.empty())
                 .collect(Collectors.toConcurrentMap(ScoreDO::getUserId, Function.identity(), MERGER))
                 .values()
