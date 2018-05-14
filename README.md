@@ -26,9 +26,8 @@ The maven modules that compose this repository are:
 * web
 * starter
 
-To generate the runnable jar type
-`mvn clean install
-`
+To generate the runnable jar, type
+`mvn clean install`
 
-To run this type 
-`java -jar backend-1.0-SNAPSHOT-jar-with-dependencies.jar`
+To run it, type 
+`java -jar target/game-backend.jar`
