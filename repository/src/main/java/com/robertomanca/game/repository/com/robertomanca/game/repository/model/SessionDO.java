@@ -8,6 +8,7 @@ import java.util.UUID;
  */
 public class SessionDO {
 
+    private static final int VALIDITY_MINUTES = 10;
     private UUID key;
     private LocalDateTime creationDateTime;
     private int userId;
@@ -29,7 +30,7 @@ public class SessionDO {
     }
 
     public boolean isNotExpired() {
-        return LocalDateTime.now().isBefore(this.creationDateTime.plusMinutes(10));
+        return LocalDateTime.now().isBefore(this.creationDateTime.plusMinutes(VALIDITY_MINUTES));
     }
 
     public void setUserId(final int userId) {
